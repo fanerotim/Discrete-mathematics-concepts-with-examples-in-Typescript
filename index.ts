@@ -1,106 +1,19 @@
-// printer / helper
-const printer = (output: Set<Product>) => {
-    output.forEach(p => console.log(p.name));
-}
-
-
-interface Product {
-    id: number;
-    name: string;
-    category: string;
-    tags: string[];
-}
-
-// example of an intersection fn; returns A ∩ B
-const intersectionFilter = (tagA: string, tagB: string): Set<Product> => {
-    const outputSet: Set<Product> = new Set();
-    const cache: Set<string> = new Set();
-
-    shopProducts.forEach(prod => {
-        if (prod.tags.includes(tagA) && prod.tags.includes(tagB)) {
-            if (!cache.has(prod.name)) {
-                cache.add(prod.name)
-                outputSet.add(prod);
-            }
+const isSubset = <T>(setA: T[], setB: T[]): boolean => {
+    for (let el of setA)
+        if (!setB.includes(el)) {
+            return false
         }
-    });
-    return outputSet
+    
+    return true;
 }
 
-const unionFilter = (tagA: string, tagB: string) => {
-    const output: Set<Product> = new Set();
-    const cache: Set<string> = new Set();
+// const subset = [1, 2, 3];
+// const superSet = [1, 2, 3, 4, 5, 6, 7, 8];
+// console.log(isSubset(subset, superSet));
 
-    shopProducts.forEach(prod => {
-        if (prod.tags.includes(tagA) || prod.tags.includes(tagB)) {
-            if (!cache.has(prod.name)) {
-                output.add(prod);
-                cache.add(prod.name);
-            }
-        }
-    })
-    return output;
-}
+const animalSubset = ['mouse', 'elephant', 'cat', 'dog']; //true
+const notAnAnimalSubset = ['elk', 'spider', 'wolf', 'bear']; //false
+const animalSuperset = ['giraffe', 'ant', 'mouse', 'elephant', 'cat', 'dog', 'horse'];
 
-const differenceFilter = (tagA: string, tagB: string) => {
-    const output: Set<Product> = new Set();
-    const cache: Set<string> = new Set();
-    const lcTagA = tagA.toLowerCase();
-    const lcTagB = tagB.toLowerCase();
-
-    shopProducts.forEach(prod => {
-        if (prod.tags.includes(lcTagA) && !prod.tags.includes(lcTagB)) {
-            if (!cache.has(prod.name)) {
-                cache.add(prod.name);
-                output.add(prod)
-            }
-        }
-    }) 
-    return output;
-}
-
-const shopProducts: Product[] = [
-    { id: 1, name: "MacBook Pro", category: "laptop", tags: ["apple", "premium", "m3"] },
-    { id: 2, name: "Asus ROG", category: "laptop", tags: ["gaming", "premium", "windows"] },
-    { id: 3, name: "iPhone 15", category: "phone", tags: ["apple", "sale"] },
-    { id: 4, name: "Galaxy S24", category: "phone", tags: ["samsung", "sale", "premium"] },
-    { id: 5, name: "iPad Air", category: "tablet", tags: ["apple", "tablet", "sale"] },
-    { id: 6, name: "iPad Air", category: "tablet", tags: ["apple", "tablet", "sale"] }, // duplicate on purpose, Sets should not inclued duplicates
-    { id: 7, name: "dummy product 1", category: "phone", tags: ["apple", "tablet", "sale"] },
-    { id: 9, name: "dummy product 2", category: "desktop computer", tags: ["samsung", "tablet", "sale", 'premium'] },
-    { id: 8, name: "dummy product 3", category: "laptop", tags: ["samsung", "tablet", "premium"] },
-    { id: 10, name: "dummy product 4", category: "phone", tags: ["apple", "tablet", "premium"] },
-    { id: 11, name: "dummy product 5", category: "phone", tags: ["apple", "tablet", "premium"] },
-    { id: 12, name: "dummy product 6", category: "desktop computer", tags: ["samsung", "tablet", "sale"] },
-    { id: 13, name: "dummy product 7", category: "table", tags: ["apple", "tablet", "sale"] },
-    { id: 14, name: "dummy product 2", category: "desktop computer", tags: ["samsung", "tablet", "sale", 'premium'] }, // duplicate (with prod id: 2) on purpose for test reasons
-    { id: 15, name: "dummy product 9", category: "desktop computer", tags: ["samsung", "tablet", "sale", 'premium'] }
-];
-
-//1. INTERSECTION EXAMPLES
-
-// get the intersection of products that have the following tags: 'apple' and 'sale'
-const appleProdSale = intersectionFilter('apple', 'sale');
-// printer(appleProdSale)
-
-// get the intersection of all products with tags: premium and sale
-const premiumProdSale = intersectionFilter('premium', 'sale');
-// printer(premiumProdSale)
-
-// get the intersection of all products with tags: samsung and tablet
-const samsungTablets = intersectionFilter('samsung', 'tablet');
-// printer(samsungTablets);
-
-//2. UNION EXAMPLES
-const appleAndSamsung = unionFilter('apple', 'samsung');
-// printer(appleAndSamsung);
-
-const saleAndPremium = unionFilter('sale', 'filter');
-// printer(saleAndPremium);
-
-//3. DIFFERENCE EXAMPLES
-const appleDifferenceSamsung = differenceFilter('apple', 'samsung');
-// printer(appleDifferenceSamsung);
-
-const samsungDifferenceApple = differenceFilter('samsung', 'apple');
-// printer(samsungDifferenceApple)
+// console.log(isSubset(animalSubset, animalSuperset));
+console.log(isSubset(notAnAnimalSubset, animalSuperset));
