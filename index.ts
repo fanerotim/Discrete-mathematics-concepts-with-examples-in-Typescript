@@ -1,19 +1,16 @@
-const isSubset = <T>(setA: T[], setB: T[]): boolean => {
-    for (let el of setA)
-        if (!setB.includes(el)) {
-            return false
-        }
-    
-    return true;
+class SymmetricDifference<T> {
+    private symmetricDifference: Set<T> = new Set();
+
+    getSymmetricDifference(setA: Set<T>, setB: Set<T>) {
+        this.symmetricDifference = setA.symmetricDifference(setB)
+        return this.symmetricDifference.values()
+    }
 }
 
-// const subset = [1, 2, 3];
-// const superSet = [1, 2, 3, 4, 5, 6, 7, 8];
-// console.log(isSubset(subset, superSet));
+// has symmetric difference
+const example = new SymmetricDifference<string>();
+console.log(example.getSymmetricDifference(new Set(['cats', 'dogs', 'horses', 'fish']), new Set(['birds', 'fish', 'big cats', 'dogs', 'snakes'])));
 
-const animalSubset = ['mouse', 'elephant', 'cat', 'dog']; //true
-const notAnAnimalSubset = ['elk', 'spider', 'wolf', 'bear']; //false
-const animalSuperset = ['giraffe', 'ant', 'mouse', 'elephant', 'cat', 'dog', 'horse'];
-
-// console.log(isSubset(animalSubset, animalSuperset));
-console.log(isSubset(notAnAnimalSubset, animalSuperset));
+// does not have symmetric difference
+// const exampleTwo = new SymmetricDifference<number>();
+// console.log(exampleTwo.getSymmetricDifference(new Set([1, 2, 3, 4]), new Set([1, 2, 3, 4])))

@@ -1,18 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const isSubset = (setA, setB) => {
-    for (let el of setA)
-        if (!setB.includes(el)) {
-            return false;
-        }
-    return true;
-};
-// const subset = [1, 2, 3];
-// const superSet = [1, 2, 3, 4, 5, 6, 7, 8];
-// console.log(isSubset(subset, superSet));
-const animalSubset = ['mouse', 'elephant', 'cat', 'dog']; //true
-const notAnAnimalSubset = ['elk', 'spider', 'wolf', 'bear']; //false
-const animalSuperset = ['giraffe', 'ant', 'mouse', 'elephant', 'cat', 'dog', 'horse'];
-// console.log(isSubset(animalSubset, animalSuperset));
-console.log(isSubset(notAnAnimalSubset, animalSuperset));
+class SymmetricDifference {
+    symmetricDifference = new Set();
+    getSymmetricDifference(setA, setB) {
+        this.symmetricDifference = setA.symmetricDifference(setB);
+        return this.symmetricDifference.values();
+    }
+}
+// has symmetric difference
+const example = new SymmetricDifference();
+console.log(example.getSymmetricDifference(new Set(['cats', 'dogs', 'horses', 'fish']), new Set(['birds', 'fish', 'big cats', 'dogs', 'snakes'])));
+// does not have symmetric difference
+// const exampleTwo = new SymmetricDifference<number>();
+// console.log(exampleTwo.getSymmetricDifference(new Set([1, 2, 3, 4]), new Set([1, 2, 3, 4])))
 //# sourceMappingURL=index.js.map
