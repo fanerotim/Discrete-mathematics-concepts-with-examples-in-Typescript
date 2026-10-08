@@ -16,7 +16,13 @@ class SetOperations<T> {
     getDifference(setA: Set<T>, setB: Set<T>) {
         this.differenceSet = setA.difference(setB);
         return this.differenceSet.values();
-    }   
+    }
+
+    private isSubset: boolean = false;
+    getIsSubset(setA: Set<T>, setB: Set<T>) {
+        this.isSubset = setA.isSubsetOf(setB);
+        return this.isSubset;
+    }
 }
 
 const interesectionExample = new SetOperations<string>();
@@ -27,3 +33,6 @@ console.log(unionExample.getUnion(new Set([1, 2, 3, 4]), new Set([1, 2, 5, 6, 7]
 
 const differenceExample = new SetOperations<string>();
 console.log(differenceExample.getDifference(new Set(['One flew over cuckoo`s nest', 'Patch Adams', 'Meet the Fockers', 'The beach']), new Set(['Catch me if you can', 'The beach', 'Reservoir dogs'])))
+
+const isSubsetExample = new SetOperations<string>();
+console.log(isSubsetExample.getIsSubset(new Set(['Odd crew', 'Morphine', 'The beatles']), new Set(['Odd crew', 'Morphine', 'The beates', 'The Rolling Stones'])));
